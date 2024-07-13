@@ -13,21 +13,22 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Intro Screen'),
-          // Add navigation to characters screen
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.people),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CharactersScreen(),
-                  ),
-                );
-              },
-            ),
-          ]),
+        title: const Text('Intro Screen'),
+        // Add navigation to characters screen
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.people),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CharactersScreen(),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
       body: const Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(20),
