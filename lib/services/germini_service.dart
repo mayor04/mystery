@@ -10,7 +10,10 @@ class GeminiService {
   GenerativeModel _getAIModel({required bool hasOutputFormat}) {
     final model =
         hasOutputFormat ? 'gemini-1.5-pro' : 'gemini-1.5-flash-latest';
-    return GenerativeModel(model: model, apiKey: 'apiKey');
+    return GenerativeModel(
+      model: model,
+      apiKey: 'AIzaSyCZJPq-R9OfCJXxxIMFdRAJfg6GTGJjYcM',
+    );
   }
 
   Future<String> queryGemini(GeminiQueryModel queryModel) async {
@@ -86,7 +89,7 @@ class GeminiService {
 class GeminiQueryModel {
   GeminiQueryModel({
     required this.prompt,
-    required this.files,
+    this.files = const [],
     this.outputFormat,
   });
 

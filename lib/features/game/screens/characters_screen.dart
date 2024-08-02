@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mystery/constant/colors.dart';
 import 'package:mystery/features/game/widgets/character_item.dart';
 
+import '../data/active_game_datasource.dart';
+
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({super.key});
 
@@ -10,6 +12,8 @@ class CharactersScreen extends StatefulWidget {
 }
 
 class _CharactersScreenState extends State<CharactersScreen> {
+  final _activeGameDataSource = ActiveGameDataSource.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +30,15 @@ class _CharactersScreenState extends State<CharactersScreen> {
           child: Wrap(
             spacing: 15,
             runSpacing: 15,
-            children: List.generate(10, (index) => const CharacterItem()),
+            children: _activeGameDataSource.mystery!.suspects
+                .map(
+                  (e) => CharacterItem(
+                    name: e.name,
+                    relationship: e.relationship,
+                    motive: e.motive,
+                  ),
+                )
+                .toList(),
           ),
         ),
       ),

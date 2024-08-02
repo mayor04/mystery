@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mystery/features/game/screens/characters_screen.dart';
+import 'package:mystery/features/game/domain/models/mystery_model.dart';
+
+import '../data/active_game_datasource.dart';
+import 'characters_screen.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});
@@ -9,6 +12,18 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
+  final _activeGameDataSource = ActiveGameDataSource.instance;
+  MysteryModel? mystery;
+
+  @override
+  void initState() {
+    super.initState();
+    _activeGameDataSource.getActiveGame().then((value) {
+      mystery = value;
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,37 +44,38 @@ class _IntroScreenState extends State<IntroScreen> {
           ),
         ],
       ),
-      body: const Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              Text(
-                'The Mystery of the Missing',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+      body: Center(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            mystery = await _activeGameDataSource.getActiveGame();
+            setState(() {});
+          },
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Text(
+                  mystery?.title ?? 'Mystery Title',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              Divider(),
-              SizedBox(height: 40),
-              Text(
-                'Rain lashed against the corrugated iron roof of the shed, a '
-                "relentless drumming that vibrated in Maya's bones. Huddled "
-                'beneath a threadbare blanket, she clutched the flickering '
-                'lantern, its weak glow casting grotesque shadows that danced'
-                ' across the dusty crates. Each rumble of thunder seemed closer, '
-                'a harbinger of something monstrous lurking just beyond the flimsy walls.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
+                const SizedBox(height: 10),
+                const Divider(),
+                const SizedBox(height: 40),
+                Text(
+                  mystery?.story ?? 'Story',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-              SizedBox(height: 100),
-            ],
+                const SizedBox(height: 100),
+              ],
+            ),
           ),
         ),
       ),
