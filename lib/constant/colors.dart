@@ -15,6 +15,10 @@ class AppColors {
   // Temporary colors
   static const Color primary = Color.fromARGB(255, 216, 204, 199);
   static const Color demoBlue = Color(0xFF101F30);
+
+  static const Color blue50 = Color(0xFFBEC4CB);
+  static const Color blue700 = Color(0xFF101F30);
+  static const Color textBeige = Color(0xFFFFE9C0);
 }
 
 class AppGradient {

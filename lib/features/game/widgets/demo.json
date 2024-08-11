@@ -1,0 +1,66 @@
+{
+    "objects": [
+        {
+            "id": 175914272,
+            "x": 462.79251436102754,
+            "y": 250.5048746518106,
+            "type": "text",
+            "properties": {
+                "type": "text",
+                "objectSize": [
+                    300,
+                    107
+                ],
+                "editorType": "quill",
+                "delta": [
+                    {
+                        "insert": "dm"
+                    },
+                    {
+                        "insert": "kamdcjad",
+                        "attributes": {
+                            "bold": true
+                        }
+                    },
+                    {
+                        "insert": "cjdaccda\nc"
+                    },
+                    {
+                        "insert": "asda",
+                        "attributes": {
+                            "bold": true
+                        }
+                    },
+                    {
+                        "insert": "cdna\nca"
+                    },
+                    {
+                        "insert": "cddaadsca",
+                        "attributes": {
+                            "customBold": true
+                        }
+                    },
+                    {
+                        "insert": "kdanckdakladlkckna\n"
+                    }
+                ]
+            },
+            "groupId": null
+        }
+    ],
+    "canvasData": {
+        "constraintSize": [
+            1077,
+            740
+        ],
+        "canvasSize": [
+            960,
+            540
+        ],
+        "translateX": 70.00000000042989,
+        "translateY": 85.71620718680306,
+        "scale": 1.0476272727272729,
+        "scaleEnabled": true,
+        "panEnabled": true
+    }
+}
