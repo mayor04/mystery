@@ -34,7 +34,7 @@ class EventBloc extends Cubit<BaseEventState> {
     emit(
       EventState(
         eventModel: events,
-        objectives: const [],
+        objectives: event.tasks,
       ),
     );
   }

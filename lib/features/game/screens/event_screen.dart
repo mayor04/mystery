@@ -16,9 +16,12 @@ import '../bloc/game_bloc.dart';
 
 class EventScreen extends StatefulWidget {
   final StoryEventModel event;
+  final List<EventModel> previousEvents;
+
   const EventScreen({
     super.key,
     required this.event,
+    this.previousEvents = const [],
   });
 
   @override
@@ -37,10 +40,23 @@ class _EventScreenState extends State<EventScreen> {
         body: GameBackground.color(
           child: Column(
             children: [
-              GameHeader(
-                title: '',
-                type: GameHeaderType.ongoingEvent,
-                onTapEvents: () => Navigator.pop(context),
+              Builder(
+                builder: (context) {
+                  return GameHeader(
+                    title: '',
+                    type: GameHeaderType.ongoingEvent,
+                    onTapEvents: () {
+                      // final state = context.read<EventBloc>().state;
+                      // if (state is EventState) {
+                      //   if (state.eventModel.length > 2) {
+                      //     Navigator.pop(context, state.eventModel);
+                      //     return;
+                      //   }
+                      // }
+                      Navigator.pop(context);
+                    },
+                  );
+                },
               ),
               const SizedBox(height: 15),
               Expanded(

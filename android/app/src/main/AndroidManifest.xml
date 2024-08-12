@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mystery.org.mystery">
    <application
-        android:label="mystery"
+        android:label="Evolving Mystery"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

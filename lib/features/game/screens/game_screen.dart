@@ -87,62 +87,62 @@ class _GameScreenState extends State<GameScreen> {
                               ),
                             ),
                           ),
-                        if (gameState.showEvents)
-                          if (gameState.storyDetails.events.isNotEmpty &&
-                              gameState.currentEvent != null)
-                            SliverPadding(
-                              padding: const EdgeInsets.only(
-                                top: 20,
-                                left: 16,
-                                right: 16,
-                                bottom: 50,
-                              ),
-                              sliver: SliverList.separated(
-                                itemCount: gameState.storyDetails.events.length,
-                                itemBuilder: (_, index) {
-                                  final event =
-                                      gameState.storyDetails.events[index];
-                                  return EventItem(
-                                    event: event,
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute<EventScreen>(
-                                          builder: (context) =>
-                                              BlocProvider.value(
-                                            value: context.read<GameBloc>(),
-                                            child: EventScreen(
-                                              event: event,
-                                            ),
+                        // if (gameState.showEvents)
+                        if (gameState.storyDetails.events.isNotEmpty &&
+                            gameState.openedEventModels.isNotEmpty)
+                          SliverPadding(
+                            padding: const EdgeInsets.only(
+                              top: 20,
+                              left: 16,
+                              right: 16,
+                              bottom: 50,
+                            ),
+                            sliver: SliverList.separated(
+                              itemCount: gameState.storyDetails.events.length,
+                              itemBuilder: (_, index) {
+                                final event =
+                                    gameState.storyDetails.events[index];
+                                return EventItem(
+                                  event: event,
+                                  onTap: () {
+                                    context.read<GameBloc>().selectEvent(event);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<EventScreen>(
+                                        builder: (context) =>
+                                            BlocProvider.value(
+                                          value: context.read<GameBloc>(),
+                                          child: EventScreen(
+                                            event: event,
                                           ),
                                         ),
-                                      );
-                                    },
-                                  );
-                                },
-                                separatorBuilder: (_, index) {
-                                  return SizedBox(
-                                    height: 45,
-                                    child: Row(
-                                      children: [
-                                        const SizedBox(width: 16),
-                                        Container(
-                                          height: 25,
-                                          width: 3,
-                                          color: AppColors.gameBlue,
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                        if (gameState.currentEvent == null)
-                          SliverToBoxAdapter(
-                            child: EventSelectionCarousel(
-                              events: gameState.storyDetails.events,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              separatorBuilder: (_, index) {
+                                return SizedBox(
+                                  height: 45,
+                                  child: Row(
+                                    children: [
+                                      const SizedBox(width: 16),
+                                      Container(
+                                        height: 25,
+                                        width: 3,
+                                        color: AppColors.gameBlue,
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           ),
+                        SliverToBoxAdapter(
+                          child: EventSelectionCarousel(
+                            events: gameState.closedEventModels,
+                          ),
+                        ),
                       ],
                     );
                   },

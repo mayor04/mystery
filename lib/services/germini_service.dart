@@ -16,7 +16,7 @@ class GeminiService {
         hasOutputFormat ? 'gemini-1.5-pro' : 'gemini-1.5-flash-latest';
     return GenerativeModel(
       model: model,
-      apiKey: 'AIzaSyCZJPq-R9OfCJXxxIMFdRAJfg6GTGJjYcM',
+      apiKey: 'AIzaSyCBudu7zFAmtlWfd8vGPt-P9czn_Ez_VVk',
     );
   }
 

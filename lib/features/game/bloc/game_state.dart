@@ -15,13 +15,13 @@ class GameState extends BaseGameState with EquatableMixin {
   final StoryModel gameStory;
   final StoryDetailsModel storyDetails;
   final List<String> eventList;
-  final String? currentEvent;
+  final List<String> openedEvents;
   final bool showEvents;
 
   GameState({
     required this.gameStory,
     required this.storyDetails,
-    this.currentEvent,
+    this.openedEvents = const [],
     this.eventList = const [],
     this.showEvents = false,
   });
@@ -33,15 +33,23 @@ class GameState extends BaseGameState with EquatableMixin {
     StoryModel? gameStory,
     StoryDetailsModel? storyDetails,
     List<String>? eventList,
-    String? currentEvent,
+    List<String>? openedEvents,
     bool? showEvents,
   }) {
     return GameState(
       gameStory: gameStory ?? this.gameStory,
       storyDetails: storyDetails ?? this.storyDetails,
       eventList: eventList ?? this.eventList,
-      currentEvent: currentEvent ?? this.currentEvent,
+      openedEvents: openedEvents ?? this.openedEvents,
       showEvents: showEvents ?? this.showEvents,
     );
   }
+
+  bool get isAnyEventOpened => openedEvents.isNotEmpty;
+  List<StoryEventModel> get openedEventModels => openedEvents
+      .map((e) => storyDetails.events.firstWhere((element) => element.id == e))
+      .toList();
+  List<StoryEventModel> get closedEventModels => storyDetails.events
+      .where((element) => !openedEvents.contains(element.id))
+      .toList();
 }

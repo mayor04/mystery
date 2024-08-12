@@ -12,7 +12,9 @@ class App extends StatelessWidget {
       theme: AppTheme().darkTheme(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
+      debugShowCheckedModeBanner: false,
       home: const StartScreen(),
+      title: 'Evolving Mystery',
     );
   }
 }

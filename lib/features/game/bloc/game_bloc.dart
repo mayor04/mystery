@@ -36,4 +36,14 @@ class GameBloc extends Cubit<BaseGameState> {
       ),
     );
   }
+
+  void selectEvent(StoryEventModel event) {
+    final currentState = state as GameState;
+
+    emit(
+      currentState.copyWith(
+        openedEvents: currentState.openedEvents + [event.id],
+      ),
+    );
+  }
 }
