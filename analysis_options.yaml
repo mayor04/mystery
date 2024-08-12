@@ -3,6 +3,8 @@ include: package:very_good_analysis/analysis_options.3.1.0.yaml
 analyzer: 
   errors: 
     argument_type_not_assignable: ignore
+    inference_failure_on_untyped_parameter: ignore
+    unnecessary_lambdas: ignore
 
 linter:
   rules:

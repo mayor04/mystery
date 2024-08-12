@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mystery/features/game/domain/models/mystery_model.dart';
+import 'package:mystery/features/game/domain/models/story_detail_model.dart';
 
 import '../data/active_game_datasource.dart';
+import '../domain/models/story_model.dart';
 import 'characters_screen.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -14,12 +16,14 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   final _activeGameDataSource = ActiveGameDataSource.instance;
   MysteryModel? mystery;
+  List<StoryModel> stories = [];
+  StoryDetailModel? storyDetail;
 
   @override
   void initState() {
     super.initState();
-    _activeGameDataSource.getActiveGame().then((value) {
-      mystery = value;
+    _activeGameDataSource.getActiveGame(mockStory).then((value) {
+      storyDetail = value;
       setState(() {});
     });
   }
@@ -37,7 +41,7 @@ class _IntroScreenState extends State<IntroScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const CharactersScreen(),
+                  builder: (_) => const CharactersScreen(),
                 ),
               );
             },
@@ -47,15 +51,16 @@ class _IntroScreenState extends State<IntroScreen> {
       body: Center(
         child: RefreshIndicator(
           onRefresh: () async {
-            mystery = await _activeGameDataSource.getActiveGame();
+            storyDetail = await _activeGameDataSource.getActiveGame(mockStory);
             setState(() {});
           },
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20),
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
                 Text(
-                  mystery?.title ?? 'Mystery Title',
+                  storyDetail?.intro ?? 'Mystery Title',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 24,
@@ -67,11 +72,40 @@ class _IntroScreenState extends State<IntroScreen> {
                 const Divider(),
                 const SizedBox(height: 40),
                 Text(
-                  mystery?.story ?? 'Story',
+                  '${storyDetail?.numberOfEvents ?? 'Story'}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 20,
                   ),
+                ),
+                Column(
+                  children: storyDetail?.events
+                          .map(
+                            (event) => Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                Text(
+                                  event.title,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  event.intro,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                          .toList() ??
+                      [],
                 ),
                 const SizedBox(height: 100),
               ],
