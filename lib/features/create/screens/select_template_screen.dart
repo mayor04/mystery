@@ -23,13 +23,13 @@ class _SelectTemplateScreenState extends State<SelectTemplateScreen> {
             children: [
               const SizedBox(height: 40),
               const PageTitle(
-                title: 'Select Template',
+                title: 'Story Library',
                 subtitle:
-                    'Lorem ipsum dolor sit amet consectetur. Tortor odio dignissim tortor aliquam porttitor id.',
+                    'Welcome to the story library. Choose a story template to start your adventure.',
               ),
               const SizedBox(height: 64),
               SizedBox(
-                height: 400,
+                height: 450,
                 child: ListView.separated(
                   itemCount: mockStoryList.length,
                   padding: const EdgeInsets.only(left: 20),
@@ -43,7 +43,7 @@ class _SelectTemplateScreenState extends State<SelectTemplateScreen> {
                     return TemplateItem(
                       model: mockStory,
                       onTap: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute<GameScreen>(
                             builder: (context) => GameScreen(

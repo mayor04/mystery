@@ -31,16 +31,21 @@ class TemplateItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 200,
+              height: 150,
               decoration: const BoxDecoration(
                 color: Color(0xFFD9D9D9),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
+                image: DecorationImage(
+                  image:
+                      AssetImage('assets/images/gemini_mystery_evolving.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(
               height: 11,
             ),
-            Flexible(
+            Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
@@ -57,10 +62,20 @@ class TemplateItem extends StatelessWidget {
                     Text(
                       model.summary,
                       textAlign: TextAlign.center,
+                      style: AppFonts.bodyXS(color: AppColors.blue200),
+                    ),
+                    const SizedBox(height: 10),
+                    const Divider(height: 2, thickness: 2),
+                    const SizedBox(height: 10),
+                    Text(
+                      'You will learn that ${model.lesson.toLowerCase()}',
+                      textAlign: TextAlign.center,
                       maxLines: 4,
                       style: AppFonts.bodyXS(color: AppColors.blue200),
                     ),
-                    const SizedBox(height: 21),
+                    const SizedBox(height: 10),
+                    const Divider(height: 2, thickness: 2),
+                    const SizedBox(height: 10),
                     Wrap(
                       spacing: 10,
                       runSpacing: 4,

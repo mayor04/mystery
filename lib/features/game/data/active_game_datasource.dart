@@ -16,6 +16,56 @@ class ActiveGameDataSource {
   final _geminiService = GeminiService();
   MysteryModel? mystery;
 
+  Future<StoryModel> createGame(String story) async {
+    final schema = Schema(
+      SchemaType.object,
+      properties: {
+        'image': Schema.string(),
+        'title': Schema.string(),
+        'summary': Schema.string(),
+        'question': Schema.string(),
+        'ending': Schema.string(),
+        'lesson': Schema.string(),
+        'genres': Schema(
+          SchemaType.array,
+          items: Schema(SchemaType.string),
+          nullable: false,
+        ),
+      },
+      requiredProperties: [
+        'title',
+        'summary',
+        'question',
+        'ending',
+        'lesson',
+        'genres',
+      ],
+    );
+    final res = await _geminiService.queryGemini(
+      GeminiQueryModel(
+        outputFormat: schema,
+        prompt: '''
+User intended story: $story
+Using this story information, create a story with the following details; the story created must have an educational or informative purpose. 
+Major Data: 
+• Story Title: A catchy and descriptive title for your story.
+• Story Summary: A brief overview of the plot, including the main characters and the central conflict.
+• Image: An image that represents the story in an engaging way.
+• General Question: A question that summarizes the mystery at the heart of the story.
+• Story Ending: The resolution of the mystery, explaining the answer to the general question. This ending should be realistic and relatable.
+• Lesson to be learnt: A key takeaway or message conveyed by the story. This can be a life lesson, an SDG, or a broader philosophical theme.
+• 10 Genre Tags: Descriptive tags for the story's genre, such as Mystery, Drama, Thriller, etc.
+Please ensure that the story idea is realistic and engaging.
+
+NOTE: 
+• The story should be in first person and should be a minimum of 80% unique.
+''',
+      ),
+    );
+    log(res);
+    return StoryModel.fromMap(jsonDecode(res));
+  }
+
   Future<StoryDetailsModel> getActiveGame(StoryModel story) async {
     final schema = Schema(
       SchemaType.object,

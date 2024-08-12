@@ -35,6 +35,10 @@ class EventSelectionItem extends StatelessWidget {
               decoration: const BoxDecoration(
                 color: Color(0xFFD9D9D9),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
+                image: DecorationImage(
+                  image: AssetImage('assets/images/mic_image.png'),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(

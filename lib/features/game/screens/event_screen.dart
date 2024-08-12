@@ -87,6 +87,12 @@ class _EventScreenState extends State<EventScreen> {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(10),
                                   ),
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                      'assets/images/mic_image.png',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 20),

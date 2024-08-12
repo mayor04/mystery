@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mystery/features/create/screens/create_template_screen.dart';
 import 'package:mystery/features/create/screens/select_template_screen.dart';
 import 'package:mystery/features/game/widgets/game_background.dart';
 import 'package:mystery/utils/images.dart';
@@ -32,13 +33,20 @@ class StartScreen extends StatelessWidget {
                   ),
                   AppButton(
                     text: 'Create New',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<SelectTemplateScreen>(
+                          builder: (context) => const CreateTemplateScreen(),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   AppButton.border(
-                    text: 'Select From Templates',
+                    text: 'Select From Library',
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -48,13 +56,13 @@ class StartScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  AppButton.border(
-                    text: 'Continue Previous',
-                    onPressed: () {},
-                  )
+                  // const SizedBox(
+                  //   height: 20,
+                  // ),
+                  // AppButton.border(
+                  //   text: 'Continue Previous',
+                  //   onPressed: () {},
+                  // )
                 ],
               ),
             ],
