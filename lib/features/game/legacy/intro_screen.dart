@@ -18,10 +18,10 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   void initState() {
     super.initState();
-    _activeGameDataSource.getActiveGame().then((value) {
-      mystery = value;
-      setState(() {});
-    });
+    // _activeGameDataSource.getActiveGame().then((value) {
+    //   mystery = value;
+    //   setState(() {});
+    // });
   }
 
   @override
@@ -47,7 +47,7 @@ class _IntroScreenState extends State<IntroScreen> {
       body: Center(
         child: RefreshIndicator(
           onRefresh: () async {
-            mystery = await _activeGameDataSource.getActiveGame();
+            // mystery = await _activeGameDataSource.getActiveGame();
             setState(() {});
           },
           child: SingleChildScrollView(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mystery/app/models/story_detail_model.dart';
 import 'package:mystery/constant/colors.dart';
 import 'package:mystery/features/game/widgets/animated_words.dart';
 import 'package:mystery/features/game/widgets/game_background.dart';
@@ -7,11 +8,11 @@ import 'package:mystery/utils/app_fonts.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({
-    required this.title,
     super.key,
+    required this.event,
   });
 
-  final String title;
+  final StoryEventModel event;
 
   @override
   State<EventScreen> createState() => _EventScreenState();
@@ -25,7 +26,7 @@ class _EventScreenState extends State<EventScreen> {
         child: Column(
           children: [
             GameHeader(
-              title: widget.title,
+              title: widget.event.title,
               type: GameHeaderType.ongoingEvent,
               onTapEvents: () => Navigator.pop(context),
             ),
@@ -54,31 +55,33 @@ class _EventScreenState extends State<EventScreen> {
                               width: 90,
                               decoration: BoxDecoration(
                                 color: Colors.pink[200],
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
                               ),
                             ),
                             const SizedBox(width: 16),
                           ],
                         ),
                         const SizedBox(height: 15),
-                        Text(
-                          'Meet with richards family',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: AppFonts.bodySmall(
-                            color: AppColors.textBeige,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            widget.event.title,
+                            textAlign: TextAlign.center,
+                            style: AppFonts.bodySmall(
+                              color: AppColors.textBeige,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    const Expanded(
+                    Expanded(
                       child: SingleChildScrollView(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: Column(
                           children: [
                             AnimatedWords(
-                              text:
-                                  'The family is in a crisis, they need your help to solve the mystery Lorem ipsum dolor sit amet consectetur. Amet eget felis sit enim sed. Euismod volutpat blandit vulputate mauris arcu aliquet quisque commodo ut. Venenatis morbi volutpat cursus sit quis nulla sed. Malesuada lectus placerat duis tortor. Interdum massa facilisis porttitor posuere a et. Dictum semper sapien amet amet id pulvinar. Pellentesque vitae quis dui eros tellus magna id. Elit',
+                              text: widget.event.intro,
                             ),
                           ],
                         ),

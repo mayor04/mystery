@@ -33,7 +33,7 @@ class TemplateItem extends StatelessWidget {
             Container(
               height: 200,
               decoration: const BoxDecoration(
-                color: const Color(0xFFD9D9D9),
+                color: Color(0xFFD9D9D9),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             ),
@@ -48,6 +48,7 @@ class TemplateItem extends StatelessWidget {
                   children: [
                     Text(
                       model.title,
+                      textAlign: TextAlign.center,
                       style: AppFonts.bodyLarge(),
                     ),
                     const SizedBox(

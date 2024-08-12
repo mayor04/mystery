@@ -69,7 +69,7 @@ class _GameScreenState extends State<GameScreen> {
                           ),
                         ),
                         // list view sliver
-                        if (gameState.eventList.isEmpty)
+                        if (gameState.storyDetails.intro.isNotEmpty)
                           SliverPadding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 25,
@@ -82,8 +82,8 @@ class _GameScreenState extends State<GameScreen> {
                                 ),
                               ),
                             ),
-                          )
-                        else
+                          ),
+                        if (gameState.storyDetails.events.isNotEmpty)
                           SliverPadding(
                             padding: const EdgeInsets.only(
                               top: 20,
@@ -92,15 +92,18 @@ class _GameScreenState extends State<GameScreen> {
                               bottom: 50,
                             ),
                             sliver: SliverList.separated(
-                              itemCount: 10,
+                              itemCount: gameState.storyDetails.events.length,
                               itemBuilder: (_, index) {
+                                final event =
+                                    gameState.storyDetails.events[index];
                                 return EventItem(
+                                  event: event,
                                   onTap: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute<EventScreen>(
                                         builder: (context) => EventScreen(
-                                          title: gameState.gameStory.title,
+                                          event: event,
                                         ),
                                       ),
                                     );

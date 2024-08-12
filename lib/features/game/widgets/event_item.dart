@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mystery/app/models/story_detail_model.dart';
 import 'package:mystery/utils/app_fonts.dart';
 
 class EventItem extends StatelessWidget {
   const EventItem({
-    required this.onTap,
     super.key,
+    required this.onTap,
+    required this.event,
   });
 
   final VoidCallback onTap;
+  final StoryEventModel event;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +31,20 @@ class EventItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    'Meet with Richard’s family',
-                    style: AppFonts.bodyMedium(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 60),
+                    child: Text(
+                      event.title,
+                      style: AppFonts.bodyMedium(),
+                    ),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   Text(
-                    'Summary of the eventolutpat cursus sit quis nulla sed. Malesuada lectus placerat duis tortor. Interdum massa facilisis porttitor posuere a et. Dictum semper sapien amet amet id pulvinar. Pellentesque vitae quis dui eros tellus magna id. Elit ',
+                    event.intro,
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                     style: AppFonts.bodySmall(
                       color: const Color(0xFF8C8C8C),
                     ),

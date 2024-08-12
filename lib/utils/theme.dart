@@ -22,6 +22,9 @@ class AppTheme {
       textTheme: GoogleFonts.robotoTextTheme(
         _textTheme(colorScheme),
       ),
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: white,
+      ),
       scaffoldBackgroundColor: AppColors.demoBlue,
       appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
       iconButtonTheme: IconButtonThemeData(style: IconButton.styleFrom()),
