@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:google_generative_ai/google_generative_ai.dart';
 
+import '../../../app/models/event_model.dart';
 import '../../../app/models/story_detail_model.dart';
 import '../../../app/models/story_model.dart';
 import '../../../services/germini_service.dart';
@@ -70,5 +71,60 @@ NOTE:
     );
     log(res);
     return StoryDetailsModel.fromMap(jsonDecode(res));
+  }
+
+  Future<List<EventModel>> getEventContinuation(
+    StoryModel? story,
+    StoryDetailsModel storyDetails,
+    StoryEventModel event,
+    List<EventModel> dialog,
+  ) async {
+    final res = await _geminiService.queryGemini(
+      GeminiQueryModel(
+        outputFormat: Schema.object(
+          nullable: false,
+          properties: {
+            'text': Schema.string(),
+            'choices': Schema.array(
+              items: Schema.object(
+                properties: {
+                  'text': Schema.string(),
+                  'index': Schema.integer(),
+                },
+                requiredProperties: ['text', 'index'],
+              ),
+            ),
+          },
+          requiredProperties: ['text', 'choices'],
+        ),
+        prompt:
+            "Generate a scene continuation that follows the user's choice and remains "
+            'within the scope of the event and the overall story. The continuation '
+            'should be detailed and engaging, creating a sense of immersion for the '
+            'user. Include at least three new choices for the user to make at the '
+            'end of the continuation '
+
+            // Add the user's choice and the event's context
+            'Story Info: ${story?.toMap()}\n'
+            'Story Details: ${storyDetails.toMap()}\n'
+            'Selected Event: ${event.toMap()}\n'
+            'Dialogs in the selected event: ${dialog.map((e) => e.toMap()).toList()}\n'
+
+            // Tell AI that the user's choice is the next message
+            // "Respond okay now, and then provide the user's choice after the next message"
+            'Remember, the responses should be in json format as described in the schema',
+      ),
+    );
+    log(res);
+    return [
+      EventStoryModel('id', text: jsonDecode(res)['text']),
+      EventDecisionModel(
+        'id',
+        question: '',
+        decisionDetails: List<String>.from(
+          jsonDecode(res)['choices'].map((e) => e['text']),
+        ),
+      ),
+    ];
   }
 }

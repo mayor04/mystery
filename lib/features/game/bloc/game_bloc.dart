@@ -25,4 +25,15 @@ class GameBloc extends Cubit<BaseGameState> {
       ),
     );
   }
+
+  // ignore: avoid_positional_boolean_parameters
+  void toggleShowEvents(bool value) {
+    final currentState = state as GameState;
+
+    emit(
+      currentState.copyWith(
+        showEvents: value,
+      ),
+    );
+  }
 }

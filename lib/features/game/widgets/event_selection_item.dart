@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mystery/app/models/story_detail_model.dart';
 import 'package:mystery/constant/colors.dart';
 import 'package:mystery/utils/app_fonts.dart';
 
 class EventSelectionItem extends StatelessWidget {
   const EventSelectionItem({
-    this.onTap,
     super.key,
+    this.onTap,
+    required this.event,
   });
 
   final VoidCallback? onTap;
+  final StoryEventModel event;
 
   @override
   Widget build(BuildContext context) {
@@ -28,35 +31,37 @@ class EventSelectionItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 200,
+              height: 150,
               decoration: const BoxDecoration(
-                color: const Color(0xFFD9D9D9),
+                color: Color(0xFFD9D9D9),
                 borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             ),
             const SizedBox(
               height: 11,
             ),
-            Flexible(
+            Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Meet with Richard’s family',
+                      event.title,
+                      textAlign: TextAlign.center,
                       style: AppFonts.bodyLarge(),
                     ),
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      'Summary of the eventolutpat cursus sit quis nulla sed. Malesuada lectus placerat duis tortor. Interdum massa facilisis porttitor posuere a et. Dictum semper sapien amet amet id pulvinar. Pellentesque vitae quis dui eros tellus magna id. Elit ',
-                      textAlign: TextAlign.center,
-                      maxLines: 4,
-                      style: AppFonts.bodyXS(color: AppColors.blue200),
+                    Expanded(
+                      child: Text(
+                        event.intro,
+                        textAlign: TextAlign.center,
+                        style: AppFonts.bodyXS(color: AppColors.blue200),
+                      ),
                     ),
-                    const SizedBox(height: 14),
+                    // const SizedBox(height: 14),
                   ],
                 ),
               ),

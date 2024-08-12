@@ -6,8 +6,14 @@ import 'package:mystery/features/game/screens/event_screen.dart';
 import 'package:mystery/features/game/widgets/event_selection_item.dart';
 import 'package:mystery/utils/app_fonts.dart';
 
+import '../../../app/models/story_detail_model.dart';
+
 class EventSelectionCarousel extends StatefulWidget {
-  const EventSelectionCarousel({super.key});
+  const EventSelectionCarousel({
+    super.key,
+    required this.events,
+  });
+  final List<StoryEventModel> events;
 
   @override
   State<EventSelectionCarousel> createState() => _EventSelectionCarouselState();
@@ -30,7 +36,7 @@ class _EventSelectionCarouselState extends State<EventSelectionCarousel> {
         SizedBox(
           height: 414,
           child: PageView.builder(
-            itemCount: 5,
+            itemCount: widget.events.length,
             controller: _controller,
             itemBuilder: (context, index) {
               // final selectedIndex = _controller.page?.round() ?? 0;
@@ -42,13 +48,14 @@ class _EventSelectionCarouselState extends State<EventSelectionCarousel> {
                   vertical: 30,
                 ),
                 child: EventSelectionItem(
+                  event: widget.events[index],
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute<EventScreen>(
                         builder: (_) => BlocProvider.value(
                           value: context.read<GameBloc>(),
-                          child: EventScreen(),
+                          child:  EventScreen(event: widget.events[index]),
                         ),
                       ),
                     );

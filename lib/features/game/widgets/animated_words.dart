@@ -4,22 +4,27 @@ import 'package:mystery/utils/app_fonts.dart';
 
 class AnimatedWords extends StatefulWidget {
   const AnimatedWords({
+    super.key,
     required this.text,
     this.duration = const Duration(milliseconds: 200),
-    super.key,
+    this.onAnimationEnd,
   });
 
   final String text;
   final Duration duration;
+  final VoidCallback? onAnimationEnd;
 
   @override
   State<AnimatedWords> createState() => _AnimatedWordsState();
 }
 
-class _AnimatedWordsState extends State<AnimatedWords> with SingleTickerProviderStateMixin {
+class _AnimatedWordsState extends State<AnimatedWords>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late List<Animation<Color?>> _animations;
   late List<String> _words;
+
+  int currentIndex = 0;
 
   @override
   void initState() {
@@ -45,7 +50,14 @@ class _AnimatedWordsState extends State<AnimatedWords> with SingleTickerProvider
       ),
     );
 
-    _controller.forward();
+    _controller
+      ..forward()
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed &&
+            _words.length == currentIndex + 1) {
+          widget.onAnimationEnd?.call();
+        }
+      });
   }
 
   @override

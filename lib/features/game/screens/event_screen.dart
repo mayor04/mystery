@@ -11,9 +11,14 @@ import 'package:mystery/features/game/widgets/game_header.dart';
 import 'package:mystery/utils/app_fonts.dart';
 import 'package:mystery/utils/images.dart';
 
+import '../../../app/models/story_detail_model.dart';
+import '../bloc/game_bloc.dart';
+
 class EventScreen extends StatefulWidget {
+  final StoryEventModel event;
   const EventScreen({
     super.key,
+    required this.event,
   });
 
   @override
@@ -24,7 +29,10 @@ class _EventScreenState extends State<EventScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => EventBloc()..loadEvent(),
+      create: (context) => EventBloc(
+        (context.read<GameBloc>().state as GameState).storyDetails,
+        widget.event,
+      )..loadEvent(),
       child: Scaffold(
         body: GameBackground.color(
           child: Column(
@@ -61,7 +69,8 @@ class _EventScreenState extends State<EventScreen> {
                                 decoration: BoxDecoration(
                                   color: Colors.pink[200],
                                   borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
+                                    Radius.circular(10),
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 20),
@@ -69,12 +78,14 @@ class _EventScreenState extends State<EventScreen> {
                             ],
                           ),
                           const SizedBox(height: 15),
-                          Text(
-                            'Meet with richards family',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: AppFonts.bodySmall(
-                              color: AppColors.textBeige,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              widget.event.title,
+                              textAlign: TextAlign.center,
+                              style: AppFonts.bodySmall(
+                                color: AppColors.textBeige,
+                              ),
                             ),
                           ),
                         ],
@@ -96,11 +107,11 @@ class _EventScreenState extends State<EventScreen> {
                               padding: const EdgeInsets.all(20),
                               child: Column(
                                 children: gameEvent.eventModel.map((e) {
-                                  if (e is StoryEventModel) {
+                                  if (e is EventStoryModel) {
                                     return AnimatedWords(
                                       text: e.text,
                                     );
-                                  } else if (e is DecisionEventModel) {
+                                  } else if (e is EventDecisionModel) {
                                     return DecisionBox(
                                       decisionEvent: e,
                                     );
