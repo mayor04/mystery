@@ -177,4 +177,30 @@ NOTE:
       ),
     ];
   }
+
+  Future<bool> solveMystery(String answer, StoryModel story) async {
+    final schema = Schema(
+      SchemaType.object,
+      properties: {
+        'is_correct': Schema.boolean(),
+      },
+      requiredProperties: [
+        'is_correct',
+      ],
+    );
+    final res = await _geminiService.queryGemini(
+      GeminiQueryModel(
+        outputFormat: schema,
+        prompt: '''
+User answer: $answer
+Story info: ${story.toMap()}
+Using this story information, create a response that indicates whether the user's answer is correct or incorrect. 
+Major Data: 
+• Is Correct: A boolean value that indicates whether the user's answer is correct or incorrect.
+''',
+      ),
+    );
+    log(res);
+    return jsonDecode(res)['is_correct'] as bool;
+  }
 }

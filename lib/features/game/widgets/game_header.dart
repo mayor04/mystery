@@ -3,8 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mystery/constant/colors.dart';
+import 'package:mystery/features/game/screens/answer_dialog.dart';
 import 'package:mystery/utils/app_fonts.dart';
 import 'package:mystery/utils/images.dart';
+
+import '../../../app/models/story_model.dart';
 
 enum GameHeaderType {
   ongoingEvent,
@@ -13,15 +16,17 @@ enum GameHeaderType {
 
 class GameHeader extends StatelessWidget {
   const GameHeader({
+    super.key,
     required this.type,
     required this.onTapEvents,
     required this.title,
-    super.key,
+    this.story,
   });
 
   final GameHeaderType type;
   final VoidCallback onTapEvents;
   final String title;
+  final StoryModel? story;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +53,9 @@ class GameHeader extends StatelessWidget {
                   ),
                   const SizedBox(width: 9),
                   Text(
-                    type == GameHeaderType.ongoingEvent ? 'Past Events' : 'All Events',
+                    type == GameHeaderType.ongoingEvent
+                        ? 'Past Events'
+                        : 'All Events',
                     style: AppFonts.bodyXS().copyWith(
                       color: AppColors.textBeige,
                     ),
@@ -89,16 +96,40 @@ class GameHeader extends StatelessWidget {
           const SizedBox(
             width: 6,
           ),
-          Container(
-            height: 26,
-            width: 32,
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: const Color(0xFF293253),
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
+          if (type == GameHeaderType.allEvents && story != null)
+            InkWell(
+              onTap: () => AnswerDialog.show(context, story!),
+              child: Container(
+                height: 28,
+                padding: const EdgeInsets.symmetric(horizontal: 11),
+                decoration: const BoxDecoration(
+                  color: Color(0xFF293253),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Solve Mystery'.toUpperCase(),
+                      style: AppFonts.bodyXS().copyWith(
+                        color: AppColors.textBeige,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            child: SvgPicture.asset(Images.menu),
-          ),
+          if (type == GameHeaderType.ongoingEvent)
+            Container(
+              height: 26,
+              width: 32,
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                color: const Color(0xFF293253),
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+              ),
+              child: SvgPicture.asset(Images.menu),
+            ),
         ],
       ),
     );

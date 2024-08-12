@@ -44,7 +44,8 @@ class StoryModel {
 
   String toJson() => json.encode(toMap());
 
-  factory StoryModel.fromJson(String source) => StoryModel.fromMap(json.decode(source));
+  factory StoryModel.fromJson(String source) =>
+      StoryModel.fromMap(json.decode(source));
 }
 
 final mockStory = mockStoryList[0];
@@ -101,7 +102,8 @@ final _mockStoryString = [
         "Why can't a renowned chef replicate his grandmother's legendary recipe, despite having all the ingredients?",
     'ending':
         "The chef discovers the secret ingredient was a rare herb grown only in his grandmother's village, reminding him of his heritage and passion.",
-    'lesson': 'Sometimes, our roots hold the key to unlocking our true potential and happiness.',
+    'lesson':
+        'Sometimes, our roots hold the key to unlocking our true potential and happiness.',
     'genres': ['Drama', 'Food', 'Culture', 'Family', 'Self-Discovery'],
   },
   {

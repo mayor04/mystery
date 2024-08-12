@@ -35,6 +35,7 @@ class _GameScreenState extends State<GameScreen> {
           child: Column(
             children: [
               GameHeader(
+                story: widget.gameStory,
                 title: widget.gameStory.title,
                 type: GameHeaderType.allEvents,
                 onTapEvents: () {},
