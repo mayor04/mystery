@@ -17,8 +17,12 @@ class AppColors {
   static const Color demoBlue = Color(0xFF101F30);
 
   static const Color blue50 = Color(0xFFBEC4CB);
+  static const Color blue200 = Color(0xFF86929F);
   static const Color blue700 = Color(0xFF101F30);
   static const Color textBeige = Color(0xFFFFE9C0);
+
+  static const Color gameBackground = Color(0xFF101316);
+  static const Color gameBlue = Color(0xFF293253);
 }
 
 class AppGradient {

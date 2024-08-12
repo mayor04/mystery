@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mystery/features/create/screens/select_template_screen.dart';
+import 'package:mystery/features/create/screens/start_screen.dart';
 import 'package:mystery/l10n/l10n.dart';
 import 'package:mystery/utils/theme.dart';
 
@@ -12,7 +12,7 @@ class App extends StatelessWidget {
       theme: AppTheme().darkTheme(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const SelectTemplateScreen(),
+      home: const StartScreen(),
     );
   }
 }

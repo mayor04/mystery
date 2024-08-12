@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:mystery/app/models/story_model.dart';
 import 'package:mystery/features/create/widgets/template_item.dart';
+import 'package:mystery/features/game/screens/game_screen.dart';
 import 'package:mystery/features/game/widgets/game_background.dart';
 import 'package:mystery/widgets/page_title.dart';
 
-class SelectTemplateScreen extends StatelessWidget {
+class SelectTemplateScreen extends StatefulWidget {
   const SelectTemplateScreen({super.key});
 
+  @override
+  State<SelectTemplateScreen> createState() => _SelectTemplateScreenState();
+}
+
+class _SelectTemplateScreenState extends State<SelectTemplateScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +21,7 @@ class SelectTemplateScreen extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              const SizedBox(height: 90),
+              const SizedBox(height: 40),
               const PageTitle(
                 title: 'Select Template',
                 subtitle:
@@ -22,16 +29,31 @@ class SelectTemplateScreen extends StatelessWidget {
               ),
               const SizedBox(height: 64),
               SizedBox(
-                height: 368,
+                height: 400,
                 child: ListView.separated(
-                  itemCount: 5,
+                  itemCount: mockStoryList.length,
                   padding: const EdgeInsets.only(left: 20),
                   separatorBuilder: (context, index) => const SizedBox(
                     width: 25,
                   ),
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return const TemplateItem();
+                    final mockStory = mockStoryList[index];
+
+                    return TemplateItem(
+                      model: mockStory,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<GameScreen>(
+                            builder: (context) => GameScreen(
+                              gameStory: mockStory,
+                            ),
+                          ),
+                        );
+                        // Add navigation to create screen
+                      },
+                    );
                   },
                 ),
               ),

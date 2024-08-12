@@ -4,12 +4,14 @@ import 'package:mystery/utils/app_fonts.dart';
 
 class PageTitle extends StatelessWidget {
   const PageTitle({
-    required this.title,
+    this.title,
+    this.titleWidget,
     this.subtitle,
     super.key,
   });
 
-  final String title;
+  final String? title;
+  final Widget? titleWidget;
   final String? subtitle;
 
   @override
@@ -17,15 +19,16 @@ class PageTitle extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          title,
-          style: AppFonts.headline2().copyWith(
-            color: AppColors.blue50,
-          ),
-        ),
+        titleWidget ??
+            Text(
+              title ?? '',
+              style: AppFonts.headline2().copyWith(
+                color: AppColors.blue50,
+              ),
+            ),
         if (subtitle != null)
           Padding(
-            padding: const EdgeInsets.only(top: 16),
+            padding: const EdgeInsets.only(top: 16, left: 20, right: 20),
             child: Text(
               subtitle!,
               textAlign: TextAlign.center,
