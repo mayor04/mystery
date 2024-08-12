@@ -6,6 +6,7 @@ import 'package:mystery/features/game/bloc/game_bloc.dart';
 import 'package:mystery/features/game/screens/event_screen.dart';
 import 'package:mystery/features/game/widgets/animated_words.dart';
 import 'package:mystery/features/game/widgets/event_item.dart';
+import 'package:mystery/features/game/widgets/event_selection_carousel.dart';
 import 'package:mystery/features/game/widgets/game_background.dart';
 import 'package:mystery/features/game/widgets/game_header.dart';
 import 'package:mystery/utils/app_fonts.dart';
@@ -99,8 +100,9 @@ class _GameScreenState extends State<GameScreen> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute<EventScreen>(
-                                        builder: (context) => EventScreen(
-                                          title: gameState.gameStory.title,
+                                        builder: (context) => BlocProvider.value(
+                                          value: context.read<GameBloc>(),
+                                          child: const EventScreen(),
                                         ),
                                       ),
                                     );
@@ -123,6 +125,10 @@ class _GameScreenState extends State<GameScreen> {
                                 );
                               },
                             ),
+                          ),
+                        if (gameState.currentEvent == null)
+                          const SliverToBoxAdapter(
+                            child: EventSelectionCarousel(),
                           ),
                       ],
                     );
